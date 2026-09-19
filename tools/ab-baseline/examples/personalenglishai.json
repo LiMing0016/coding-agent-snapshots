@@ -1,0 +1,13 @@
+{
+  "id": "peai-case001",
+  "source": "E:/goletalab测试/tasks/project01/safe-baseline",
+  "ref": "214f0e16357fd436a5f26369308b3ae7c6e6537c",
+  "compose": "compose.eval.json",
+  "remote": "https://github.com/LiMing0016/coding-agent-snapshots.git",
+  "stateDir": "E:/ab-runs/peai-case001",
+  "ports": {"web:3000": 23300, "backend:18080": 28081, "assistant-orchestrator:8002": 28012},
+  "environment": {
+    "web": {"VITE_ASSISTANT_API_BASE_URL": "http://127.0.0.1:28012"},
+    "backend": {"APP_BASE_URL": "http://127.0.0.1:23300"}
+  }
+}

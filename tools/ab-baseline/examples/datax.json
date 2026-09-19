@@ -1,0 +1,9 @@
+{
+  "id": "datax-case001",
+  "source": "E:/goletalab测试/tasks/project02/baseline",
+  "ref": "795250fdf751fbe4eadb8cc5c05e84ca21f5dc67",
+  "compose": "compose.eval.yaml",
+  "remote": "https://github.com/LiMing0016/coding-agent-snapshots.git",
+  "stateDir": "E:/ab-runs/datax-case001",
+  "ports": {"postgres:5432": 25432, "clickhouse:8123": 28123}
+}

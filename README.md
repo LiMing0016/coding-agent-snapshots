@@ -50,6 +50,8 @@ $LASTEXITCODE
 
 ## 已准备的评测副本
 
+- [串行 A/B 基线恢复工具](tools/ab-baseline/README.md)：保留 A 成果后恢复代码与容器数据；不同项目可并行运行，提供 Personal English AI 和 DataX 配置模板。
+
 本仓库统一管理 Personal English AI 和 DataX 的评测快照。两个项目使用不同分支，保持各自代码根目录与运行环境独立，不需要合并成同一个应用。新建的 `personalenglishai-ab-eval` 和 `DataX-ab-eval` 空仓库不再作为评测入口。
 
 - [项目与环境准备索引](projects/README.md)
