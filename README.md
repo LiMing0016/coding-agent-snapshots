@@ -48,4 +48,8 @@ $LASTEXITCODE
 - 不对已交付提交做 force-push、rebase 或 squash，保留对应远端分支。
 - 记录模板见 `templates/task-record.md`。复制到本地填写，提交到远端前检查内容与访问权限。
 
-当前仅完成仓库初始化，尚未包含任何题目的实际代码快照。
+## 已准备的评测副本
+
+- [personalenglishai-001](tasks/personalenglishai-001.md)：初始代码快照和 A/B 隔离目录已准备；尚未出题或运行，运行依赖与测试数据待配置。
+
+原始项目保持独立开发；评测副本只推送本仓库。快照仓库的 GitHub Actions 已关闭，避免源项目 workflow 在此自动运行。
