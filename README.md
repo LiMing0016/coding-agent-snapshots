@@ -50,6 +50,11 @@ $LASTEXITCODE
 
 ## 已准备的评测副本
 
+本仓库统一管理 Personal English AI 和 DataX 的评测快照。两个项目使用不同分支，保持各自代码根目录与运行环境独立，不需要合并成同一个应用。新建的 `personalenglishai-ab-eval` 和 `DataX-ab-eval` 空仓库不再作为评测入口。
+
+- [项目与环境准备索引](projects/README.md)
+- [DataX 环境准备](tasks/datax-preparation.md)：数据库容器已验证；尚未出题或运行 A/B。
+
 - [personalenglishai-001](tasks/personalenglishai-001.md)：初始代码快照和 A/B 隔离目录已准备；尚未出题或运行，运行依赖与测试数据待配置。
 
 原始项目保持独立开发；评测副本只推送本仓库。快照仓库的 GitHub Actions 已关闭，避免源项目 workflow 在此自动运行。
