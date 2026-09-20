@@ -1,6 +1,6 @@
 services:
   backend:
-    image: standalone1-baseline-backend:ch01-v1
+    image: standalone4-baseline-backend:ch01-v1
     build: ./backend
     volumes:
       - ./backend:/app
@@ -10,10 +10,10 @@ services:
       timeout: 2s
       retries: 20
   frontend:
-    image: standalone1-baseline-frontend:ch01-v1
+    image: standalone4-baseline-frontend:ch01-v1
     build: ./frontend
     ports:
-      - "127.0.0.1:${WEB_PORT:-25510}:5173"
+      - "127.0.0.1:${WEB_PORT:-25540}:5173"
     volumes:
       - ./frontend:/workspace
       - frontend_deps:/workspace/node_modules
