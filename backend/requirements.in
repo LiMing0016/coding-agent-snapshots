@@ -1,0 +1,4 @@
+fastapi==0.141.1
+uvicorn
+pytest
+httpx
