@@ -9,8 +9,8 @@ onMounted(async () => {
 </script>
 <template>
   <main>
-    <p class="label">STANDALONE 01 · INITIAL ENVIRONMENT</p>
-    <h1>数据结构实验台</h1>
+    <p class="label">STANDALONE 03 · INITIAL ENVIRONMENT</p>
+    <h1>操作系统实验台</h1>
     <p>Vue + TypeScript / Python + FastAPI</p>
     <section aria-label="环境状态"><h2>初始工程已启动</h2><p role="status">{{ status }}</p></section>
     <p class="note">当前仅提供运行环境，算法分析与可视化功能尚未实现。</p>
