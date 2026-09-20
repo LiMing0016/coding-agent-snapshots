@@ -21,6 +21,41 @@ docker compose -p stand01-prep run --rm --no-deps frontend npm run build
 
 这些只验证初始工程，不证明题目功能实现。业务代码放 backend/app 与 frontend/src；测试放 backend/tests 与 frontend/src。Python 依赖由 requirements.lock 全量固定；前端用 package-lock.json 和 npm ci；基础镜像按摘要固定。
 
+## 操作计数接口 POST /api/analysis/count
+
+请求体为 `{ "n": <十进制字符串>, "program": <程序节点> }`，响应 `{ "count": <十进制字符串> }`。全程任意精度整数运算，结果以字符串返回，不丢失精度。
+
+程序节点（`type` 判别，可任意嵌套，body 不引用外层变量）：
+
+| 节点 | 字段 | 计数含义 |
+| --- | --- | --- |
+| `op` | 无 | 1 |
+| `seq` | `items: 节点[]` | 各子项计数之和（空数组为 0） |
+| `repeat` | `times`, `body` | `times × body 计数`；times 为 0..10⁶ 的整数（布尔值拒绝）或字符串 `"n"` |
+| `double` | `body` | 倍增执行：值 1,2,4,… 直到不超过 n，共 `⌊log2 n⌋+1` 轮，每轮执行一次 body |
+| `triangle` | 无（带 body 等额外字段会被拒绝） | 固定单位体的 1+2+…+n = n(n+1)/2 |
+
+计数全部使用闭形式（乘法/求和公式/位运算），**不按 n 或 times 展开循环**；例如 15 层嵌套 `repeat(times=10⁶)` 立即算出 10⁹⁰。
+
+边界与限制：
+
+- `n`：十进制数字字符串，取值 1..10¹⁸（允许前导 0；`0`、空串、负数、小数、科学计数法均拒绝）。
+- `times`：整数 0..10⁶（含端点）或字符串 `"n"`；`true/false`（即使是 int 子类）、浮点、null、其他字符串均拒绝。
+- 程序树最多 **200 个节点**、最大深度 **16**（根节点深度为 1）；预算在进入节点时检查（先判对象类型，再查深度，再累计节点数）。
+- 拒绝未知字段、缺失字段与类型错误；错误路径为输入树**先序遇到的首个**错误的 JSONPath（如 `$.program.body.items[1].times`）。
+- 任何输入错误返回 **HTTP 422** `{ "code": <错误码>, "path": <JSONPath> }`，`code` 取值：`invalid_json`、`type_error`、`missing_field`、`unknown_field`、`invalid_value`、`out_of_range`、`node_limit`、`depth_limit`、`unknown_node`。请求体仅作为数据解释，绝不作为代码执行。
+
+示例：
+
+```bash
+curl -s -X POST http://127.0.0.1:25512/api/analysis/count \
+  -H 'content-type: application/json' \
+  -d '{"n":"8","program":{"type":"double","body":{"type":"op"}}}'
+# {"count":"4"}
+```
+
+前端“数据结构实验台”页面提供 n 与 program 的编辑面板；封装见 `frontend/src/analysis.ts`（422 时抛出携带 code/path 的 `AnalysisRequestError`）。
+
 ## A/B 工作区
 
 首次运行前完整复制已验证代码到独立 a/b，初始 HEAD 相同，分支不同。在各自目录执行：
